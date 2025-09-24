@@ -1,7 +1,7 @@
 # Ajax
 
 ### 原理
-通过 `XMLHttpRequest` 对象来向服务器发异步请求，从服务器获取数据，然后用js来操作DOM更新页面
+通过 `XMLHttpRequest` 对象来向服务器发异步请求，从服务器获取数据，然后用 `js` 来操作DOM更新页面
 
 ### 实现过程
 1. 创建Ajax的核心 `XMLHttpRequest` 对象
@@ -13,51 +13,52 @@
 
 ### 代码
 ```js
-const ajax = function(options) {
-    //创建XMLHttpRequest对象
-    const xhr = new XMLHttpRequest() 
+const Ajax = (options) => {
+  //创建XMLHttpRequest对象
+  const xhr = new XMLRequest()
 
-    // 初始化参数内容
-    const options = options || {}
-    options.type = (options.type || 'GET').toUpperCase()
-    options.dataType = options.dataType || 'json'
-    const params = options.data
+  // 初始化参数内容
+  const options = options || {}
+  options.type = (options.type || 'GET').toUpperCase()
+  options.dataType = options.dataType || 'json'
+  const parmas = options.data
 
-    
-    // xhr.open 接收三个主要参数：请求方法（如"GET"、"POST"），请求的URL，
-    // 以及一个布尔值，指示请求是否应异步执行（默认值为异步）
-    if (options.type === 'GET') {
-        xhr.open('GET', options.url + '?' + params, true)
-        xhr.send(null)
-    } else if (options.type === 'POST') {
-        xhr.open('POST', options.url, tue)
-        xhr.send(params)
+  // xhr.open 接收三个主要参数：请求方法（如"GET"、"POST"），请求的URL，
+  // 以及一个布尔值，指示请求是否应异步执行（默认值为异步）
+  if (options.type ==='GET') {
+    xhr.open('GET', options.url + '?' + parmas, true)
+    xhr.send(null)
+  } else if (options.type === 'POST') {
+    xhr.open('POST', options.url, true)
+    xhr.send(params)
+  }
+
+  // 接收
+  xhr.onreadystatechange(() => {
+    if (xhr.readyState === 4) {
+      const status = xhr.status
+      if (status >= 200 & status < 300) {
+        options.success && options.success(xhr.responseText, xhr.responseXML)
+      } else {
+        options.fail && options.fail(status)
+      }
     }
-
-    // 接收
-    xhr.onreadystatechange(() => {
-        if (xhr.readyState === 4) {
-            let status = xhr.status
-            if (status >= 200 && status < 300) {
-                options.success && options.success(xhr.responseText, xhr.responseXML)
-            } else {
-                options.fail && options.fail(status)
-            }
-        }
-    })
+  })
+  
 }
 ```
+
 ```js
-ajax({
-    type: 'post',
-    dataType: 'json',
-    data: {},
-    url: 'https://xxx',
-    success: (text, xml) => {
-        
-    },
-    fail: (status) => {
-        console.log(status)
-    }
+Ajax({
+  type: 'POST',
+  dataType: 'json',
+  data: {},
+  url: 'https://xxxx',
+  success: (text, xml) => {
+    console.log(text, xml)
+  },
+  fail: (status) => {
+    console.log(status)
+  }
 })
 ```
