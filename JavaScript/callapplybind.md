@@ -68,6 +68,9 @@ myInfo1()
 const myInfo2 = showInfo.myBind(me, 28)
 myInfo2('shanghai')
 
+// this 指向context
+// this instanceof Fn 为 false
+
 ```
 
 ### `new` 关键字调用
@@ -79,8 +82,9 @@ function Person(name, age) {
 }
 
 const BoundPerson = Person.myBind(null, 'ully', 28)
-
 const personObj = new BoundPerson()
-console.log(personObj.name)
-console.log(personObj.age)
+
+// this 指向新创建的实例对象 personObj
+// 这个实例是通过 BoundPerson() 创建的
+// this instanceof Fn 为 true（Fn就是BoundPerson）
 ```

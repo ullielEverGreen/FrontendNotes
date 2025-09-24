@@ -21,6 +21,7 @@ const Ajax = (options) => {
   const options = options || {}
   options.type = (options.type || 'GET').toUpperCase()
   options.dataType = options.dataType || 'json'
+    xhr.send(params)
   const parmas = options.data
 
   // xhr.open 接收三个主要参数：请求方法（如"GET"、"POST"），请求的URL，
@@ -34,7 +35,15 @@ const Ajax = (options) => {
   }
 
   // 接收
+
+  // onreadystatechange 存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。
   xhr.onreadystatechange(() => {
+    // readyState存有 XMLHttpRequest 的状态
+    // 0: 请求未初始化
+    // 1: 服务器连接已建立
+    // 2: 请求已接收
+    // 3: 请求处理中
+    // 4: 请求已完成，且响应已就绪
     if (xhr.readyState === 4) {
       const status = xhr.status
       if (status >= 200 & status < 300) {
