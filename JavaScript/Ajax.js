@@ -8,7 +8,7 @@
 // 5. 接受并处理服务端向客户端响应的数据处理
 // 6. 将结果更新到 HTML 页面中
 
-const axjs = function(options) {
+const ajax = function(options) {
   //创建XMLHttpRequest对象
   const xhr = new XMLHttpRequest()
 
@@ -41,7 +41,7 @@ const axjs = function(options) {
   })
 }
 
-axjs({
+ajax({
   type: 'post',
   dataType: 'json',
   data: {},
