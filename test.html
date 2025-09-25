@@ -6,22 +6,45 @@
   <title>Document</title>
 </head>
 <style>
-  .container {
-    border: 1px solid black;
-  }
-  .bfc {
-    overflow: hidden;
-  }
-  .content {
-    background: #fcc;
-    width: 100px;
-    height: 100px;
-    float: right;
-  }
+    p1{
+        overflow: hidden;
+        line-height: 40px;
+        width:400px;
+        height:40px;
+        border:1px solid red;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+        .demo {
+        position: relative;
+        line-height: 20px;
+        height: 40px;
+        overflow: hidden;
+    }
+    .demo::after {
+        content: "...";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 0 20px 0 10px;
+    }
+    .p2 {
+      width: 400px;
+        border-radius: 1px solid red;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 </style>
 <body>
-  <div class="container bfc">
-    <div class="content">1</div>
-  </div>
+  <p class="p1">这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本</p>
+  <div class='demo'>这是一段很长的文本</div>
+  <p class="p2">
+    这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本
+    这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本
+  </p>
 </body>
 </html>
