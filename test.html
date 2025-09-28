@@ -6,45 +6,29 @@
   <title>Document</title>
 </head>
 <style>
-    p1{
-        overflow: hidden;
-        line-height: 40px;
-        width:400px;
-        height:40px;
-        border:1px solid red;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
 
-        .demo {
-        position: relative;
-        line-height: 20px;
-        height: 40px;
-        overflow: hidden;
-    }
-    .demo::after {
-        content: "...";
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        padding: 0 20px 0 10px;
-    }
-    .p2 {
-      width: 400px;
-        border-radius: 1px solid red;
-        -webkit-line-clamp: 2;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  body {
+    display: flex;
+  }
+  .triangle {
+    width: 0;
+    height: 0;
+    border: 100px solid;
+    border-color: aliceblue salmon green skyblue;
+    /* border-top: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-left: 100px solid seagreen;
+    border-bottom: 50px solid transparent; */
+  }
+
+  .compare {
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+  }
 </style>
 <body>
-  <p class="p1">这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本</p>
-  <div class='demo'>这是一段很长的文本</div>
-  <p class="p2">
-    这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本
-    这是一些文本这是一些文本这是一些文本这是一些文本这是一些文本
-  </p>
+  <div class="triangle"></div>
+  <div class="compare"></div>
 </body>
 </html>
