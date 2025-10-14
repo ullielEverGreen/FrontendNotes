@@ -1,34 +1,36 @@
 /**
- * @param {string} s
+ * @param {number[]} nums
+ * @param {number} target
  * @return {number}
  */
-const romanToInt = function(s) {
-  const map = new Map()
-  map.set('I', 1)
-  map.set('V', 5)
-  map.set('X', 10)
-  map.set('L', 50)
-  map.set('C', 100)
-  map.set('D', 500)
-  map.set('M', 1000)
+const searchInsert = function(nums, target) {
+  let left = 0
+  let right = nums.length - 1
 
-  let res = 0
+  if (target > nums[nums.length - 1]) return nums.length
+  if (target < nums[0]) return 0
 
-  for (i = 0; i < s.length; i++) {
-    if (map.has(s[i])) {
-      const left = map.get(s[i])
-      const right = map.get(s[i+1]) || 0
-      if (left >= right) {
-        res += left
-      } else {
-        res -= left
+  while(left <= right) {
+    const mid = Math.floor((left + right) / 2)
+    if (target < nums[mid]) {
+      if (target > nums[mid - 1]) { 
+        return mid
       }
+      right = mid - 1 
+    } else if (target > nums[mid]) {
+      if (target < nums[mid + 1]) {
+        return mid + 1
+      }
+      left = mid + 1
+    } else if (target === nums[mid]){
+      return mid
     }
   }
-  return res
-}
-const s = "IX"
-const res = romanToInt(s)
+};
+
+const nums = [1,3]
+const target = 2
+
+const res = searchInsert(nums, target)
 
 console.log(res)
-
