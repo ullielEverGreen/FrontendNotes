@@ -8,11 +8,25 @@
  * @return {number}
  */
 var minSubArrayLen = function(target, nums) {
-  const len = 1
+  let left = 0
+  let right = 0
+  let sum = 0
+  let minLen = nums.length
+  let flg = false
 
-  for (let i = 0; i < nums.length - len + 1; i++) {
-    if (nums[i] >= target) return len
+  while(right < nums.length) {
+    sum += nums[right]
+    right++
+
+    while(sum >= target) {
+      minLen = Math.min(minLen, right - left)
+      sum -= nums[left]
+      left++
+      flg = true
+    }
   }
+
+  return flg ? minLen : 0
 };
 
 const target = 7
