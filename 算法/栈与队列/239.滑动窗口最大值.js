@@ -8,7 +8,7 @@
  * @param {number} k
  * @return {number[]}
  */
-// 超出时间限制
+// 暴力解法 超出时间限制 时间复杂度O(n*k)
 var maxSlidingWindow = function(nums, k) {
   if (nums.length === 0) return []
   if (nums.length === 1) return [nums[0]]
@@ -27,7 +27,7 @@ var maxSlidingWindow = function(nums, k) {
   return stack
 };
 
-// 超出时间限制
+// 暴力解法 超出时间限制 时间复杂度O(n*k)
 var maxSlidingWindow2 = function(nums, k) {
   if (nums.length === 0) return []
   if (nums.length === 1) return [nums[0]]
