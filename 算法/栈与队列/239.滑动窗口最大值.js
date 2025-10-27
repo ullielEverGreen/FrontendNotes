@@ -8,8 +8,40 @@
  * @param {number} k
  * @return {number[]}
  */
-// 暴力解法 超出时间限制 时间复杂度O(n*k)
+
+// 单调队列 时间复杂度O(n)
 var maxSlidingWindow = function(nums, k) {
+  if (nums.length === 0) return []
+
+  const result = [] // 存储每个窗口的最大值
+  const deque = [] // 单调递减队列（存储索引）
+
+  for (let i = 0; i < nums.length; i++) {
+    // deque[0] < i-k+1 判断队头元素的索引是否还在窗口中
+    // 当前窗口范围是：[i-k+1, i] 
+    // i-k+1 是窗口左边界
+    if (deque.length > 0 && deque[0] < i-k+1) {
+      deque.shift()
+    }
+
+    // 将前序比当前数字小的索引都移走，维护单调递减性，保持deque中第一个数字是最大的
+    while(deque.length > 0 && nums[deque[deque.length-1] < nums[i]]) {
+      deque.pop() 
+    }
+
+    // 当前索引入队
+    deque.push(i)
+
+    // 形成窗口，记录最大值
+    if (i >= k-1) {
+      result.push(nums[deque[0]])
+    }
+  }
+  return result
+};
+
+// 暴力解法 超出时间限制 时间复杂度O(n*k)
+var maxSlidingWindow1 = function(nums, k) {
   if (nums.length === 0) return []
   if (nums.length === 1) return [nums[0]]
 
@@ -45,32 +77,6 @@ var maxSlidingWindow2 = function(nums, k) {
   return stack
 };
 
-// 单调队列
-var maxSlidingWindow3 = function(nums, k) {
-  if (nums.length === 0) return []
 
-  const res = []
-  const deque = [] // 存储索引的单调递减队列
-
-  for (let i = 0; i < nums.length; i++) {
-    if (deque.length > 0 && deque[0] < i-k+1) {
-      deque.shift()
-    }
-
-    while(deque.length > 0 && nums[deque[deque.length - 1]] < nums[i]) {
-      deque.pop()
-    }
-    // 将当前索引入队
-    deque.push(i)
-
-    // 当窗口形成时，记录最大值
-    if (i >= k - 1) {
-      res.push(nums[deque[0]])
-    }
-  }
-
-  return res
-};
-
-const nums = [1,3,-1,-3,5,3,6,7], k = 3
-console.log(maxSlidingWindow3(nums, k))
+const nums = [1,-1], k = 1
+console.log(maxSlidingWindow(nums, k))
