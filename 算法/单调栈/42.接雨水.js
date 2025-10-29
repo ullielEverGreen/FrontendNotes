@@ -5,6 +5,7 @@
  * @param {number[]} height
  * @return {number}
  */
+
 // 双指针
 var trap = function(height) {
   let left = 0
@@ -35,5 +36,31 @@ var trap = function(height) {
   return result
 };
 
-const height = [3,0,2,0,3,0,4]
-console.log(trap(height))
+// 单调栈
+var trap1 = function(height) {
+  const stack = []
+  let result = 0
+
+  for (let i = 0; i < height.length; i++) {
+    while(stack.length > 0 && height[i] > height[stack[stack.length - 1]]) {
+      const bottom = stack.pop()
+
+      if (stack.length === 0) break
+
+      const left = stack[stack.length - 1]
+      const right = i
+
+      const width = right - left - 1
+      const waterHeight = Math.min(height[left], height[right]) - height[bottom]
+
+      result += width * waterHeight
+    }
+    stack.push(i)
+    console.log(stack)
+  }
+  
+  return result
+}
+
+const height = [3,0,2,0,4]
+console.log(trap1(height))
