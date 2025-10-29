@@ -4,7 +4,6 @@
 
 // 更改 nums 数组，使 nums 的前 k 个元素包含不等于 val 的元素。nums 的其余元素和 nums 的大小并不重要。
 // 返回 k。
-// 用户评测：
 
 /**
  * @param {number[]} nums

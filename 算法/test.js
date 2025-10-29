@@ -1,24 +1,30 @@
 /**
- * @param {number[]} digits
- * @return {number[]}
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
  */
-const plusOne = function(digits) {
-  for (let i = digits.length - 1; i >= 0; i--) {
-    if (digits[i] < 9) {
-      digits[i]++
-      return digits
+var search = function(nums, target) {
+  let left = 0
+  let right = nums.length - 1
+
+  let mid = Math.floor(nums.length / 2)
+  
+  while (left <= right) {
+    if (nums[mid] === target) {
+      return mid
     } else {
-      digits[i] = 0
+      if (nums[mid] < target) {
+        left = mid+1
+      } else {
+        right = mid-1
+      }
+
+      mid = Math.floor((left + right) / 2)
     }
   }
 
-
-  digits.unshift(1)
-  return digits
+  return -1
 };
 
-const digits = [9,9,8,9]
-
-const res = plusOne(digits)
-
-console.log(res)
+const nums = [-1,0,3,5,9,12], target = 2
+console.log(search(nums, target))
