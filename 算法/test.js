@@ -1,22 +1,30 @@
 /**
- * @param {number[]} digits
- * @return {number[]}
+ * @param {number} n
+ * @return {boolean}
  */
-const plusOne = function (digits) {
-  for (let i = digits.length - 1; i>= 0; i--) {
-    if (digits[i] < 9) {
-      digits[i]++
-      return digits
-    } else {
-      digits[i] = 0
+var isHappy = function(n) {
+  const arr = n.toString().split('').map(i => { return Number(i) })
+
+  let sum = 0
+  let nums = arr
+  const count = new Set()
+
+  while(sum !== 1) {
+    sum = 0
+    for (let num of nums) {
+      sum += num * num
     }
+
+    if (count.has(sum)) {
+      return false
+    } 
+
+    count.add(sum)
+    nums = sum.toString().split('').map(i => { return Number(i) })
   }
 
-  digits.unshift(1)
-
-  return digits
+  return true
 };
 
-const digits = [9]
-
-console.log(plusOne(digits))
+const n = 2
+console.log(isHappy(n))
