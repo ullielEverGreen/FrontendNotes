@@ -1,30 +1,30 @@
 /**
- * @param {string} s
- * @param {string} t
+ * @param {number} n
  * @return {boolean}
  */
-var isAnagram = function (s, t) {
-  if (s.length !== t.length) return false
+var isHappy = function(n) {
+  const arr = n.toString().split('').map(i => { return Number(i) })
 
-  const sMap = new Map()
+  let sum = 0
+  let nums = arr
+  const count = new Set()
 
-  for (let i = 0; i < s.length; i++) {
-    sMap.set(s[i], (sMap.get(s[i]) || 0) + 1)
-  }
-  
-  for (let j = 0; j < t.length; j++) {
-    if (sMap.has(t[j])) {
-      if (sMap.get(t[j]) === 1) {
-        sMap.delete(t[j])
-      } else {
-        sMap.set(t[j], sMap.get(t[j]) - 1)
-      }
+  while(sum !== 1) {
+    sum = 0
+    for (let num of nums) {
+      sum += num * num
     }
+
+    if (count.has(sum)) {
+      return false
+    } 
+
+    count.add(sum)
+    nums = sum.toString().split('').map(i => { return Number(i) })
   }
-  
-  return !sMap.size
+
+  return true
 };
 
-const s = "rat", t = "car"
-
-console.log(isAnagram(s, t))
+const n = 2
+console.log(isHappy(n))
