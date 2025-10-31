@@ -5,6 +5,8 @@
  * @param {number[]} nums
  * @return {number[]}
  */
+
+// 冒泡排序 时间复杂度 O(n*n)
 var sortedSquares = function(nums) {
   for (let i = 0; i < nums.length; i++) {
     nums[i] = nums[i] * nums[i] 
@@ -26,6 +28,31 @@ var sortedSquares = function(nums) {
   }
 };
 
-const nums = [3,2,1]
+// 双指针 时间复杂度 O(n)
+var sortedSquares1 = function(nums) {
+  const result = Array(nums.length).fill(0)
+  let left = 0
+  let right = nums.length - 1
+  let position = nums.length - 1
+  
+  while(left <= right) {
 
-console.log(sortedSquares(nums))
+    const leftSquare = nums[left] * nums[left]
+    const rightSquare = nums[right] * nums[right]
+
+    if (leftSquare > rightSquare) {
+      result[position] = leftSquare
+      left++
+    } else {
+      result[position] = rightSquare
+      right--
+    }
+
+    position--
+  }
+  return result
+}
+
+const nums = [-4,-1,0,3,10]
+
+console.log(sortedSquares1(nums))

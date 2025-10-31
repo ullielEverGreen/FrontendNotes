@@ -1,22 +1,30 @@
 /**
- * @param {number[]} digits
- * @return {number[]}
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
  */
-const plusOne = function (digits) {
-  for (let i = digits.length - 1; i>= 0; i--) {
-    if (digits[i] < 9) {
-      digits[i]++
-      return digits
-    } else {
-      digits[i] = 0
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) return false
+
+  const sMap = new Map()
+
+  for (let i = 0; i < s.length; i++) {
+    sMap.set(s[i], (sMap.get(s[i]) || 0) + 1)
+  }
+  
+  for (let j = 0; j < t.length; j++) {
+    if (sMap.has(t[j])) {
+      if (sMap.get(t[j]) === 1) {
+        sMap.delete(t[j])
+      } else {
+        sMap.set(t[j], sMap.get(t[j]) - 1)
+      }
     }
   }
-
-  digits.unshift(1)
-
-  return digits
+  
+  return !sMap.size
 };
 
-const digits = [9]
+const s = "rat", t = "car"
 
-console.log(plusOne(digits))
+console.log(isAnagram(s, t))
