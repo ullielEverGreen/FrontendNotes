@@ -1,30 +1,38 @@
 /**
- * @param {number} n
- * @return {boolean}
+ * @param {string[]} tokens
+ * @return {number}
  */
-var isHappy = function(n) {
-  const arr = n.toString().split('').map(i => { return Number(i) })
+var evalRPN = function(tokens) {
+  if (tokens.length === 1) return tokens[0]
 
-  let sum = 0
-  let nums = arr
-  const count = new Set()
+  let count
+  const stack = []
+  const operations = ['+', '-', '*', '/']
 
-  while(sum !== 1) {
-    sum = 0
-    for (let num of nums) {
-      sum += num * num
+  for (let i = 0; i < tokens.length; i++) {
+    count = 0
+    if (operations.includes(tokens[i])) {
+      const right = stack.pop()
+      const left = stack.pop()
+
+      if (tokens[i] === '+') {
+        count += (right + left)
+      } else if (tokens[i] === '-') {
+        count += (left - right)
+      } else if (tokens[i] === '*') {
+        count += (right * left)
+      } else {
+        count += (Math.trunc(left / right))
+      }
+
+      stack.push(count)
+
+    } else {
+      stack.push(Number(tokens[i]))
     }
-
-    if (count.has(sum)) {
-      return false
-    } 
-
-    count.add(sum)
-    nums = sum.toString().split('').map(i => { return Number(i) })
   }
-
-  return true
+  return stack[0]
 };
 
-const n = 2
-console.log(isHappy(n))
+const tokens = ["4","13","5","/","+"]
+console.log(evalRPN(tokens))
