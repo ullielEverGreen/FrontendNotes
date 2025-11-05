@@ -29,6 +29,22 @@ var preorderTraversal = function(root) {
     return result
 };
 
+// 递归
+var preorderTraversal1 = function(root) {
+  const result = []
+
+  const traverse = (node) => {
+    if (node === null) return
+
+    result.push(node.val)
+    traverse(node.left)
+    traverse(node.right)
+  }
+
+  traverse(root)
+  return result
+}
+
 const root = new TreeNode(1)
 root.left = new TreeNode(2)
 root.left.left = new TreeNode(4)
