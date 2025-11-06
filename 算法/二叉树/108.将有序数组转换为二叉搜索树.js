@@ -9,13 +9,15 @@ const { TreeNode } = require('./utils')
 var sortedArrayToBST = function(nums) {
   function buildTree(left, right) {
     if (left > right) return null
-     const mid = Math.floor((left + right) / 2)
 
-     const root = new TreeNode(nums[mid])
-     root.left = buildTree(left, mid - 1)
-     root.right = buildTree(mid + 1, right)
+    const mid = Math.floor((left + right) / 2)
 
-     return root
+    const root = new TreeNode(nums[mid])
+
+    root.left = buildTree(left, mid - 1)
+    root.right = buildTree(mid + 1, right)
+
+    return root
   }
 
   return buildTree(0, nums.length - 1)

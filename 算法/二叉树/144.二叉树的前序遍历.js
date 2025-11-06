@@ -8,25 +8,22 @@ const { TreeNode } = require('./utils')
  */
 // 前序遍历 中左右
 var preorderTraversal = function(root) {
-    if (!root) return []
-    const result = []
-    const stack = [root]
+  if (!root) return []
+  const result = []
+  const stack = [root]
 
-    while(stack.length > 0) {
-        const currentNode = stack.pop()
-        result.push(currentNode.val)
+  while(stack.length > 0) {
+    const currentNode = stack.pop()
+    result.push(currentNode.val)
 
-        // 先右后左，因为栈是LIFO
-
-        if (currentNode.right) {
-            stack.push(currentNode.right)
-        }
-
-        if (currentNode.left) {
-            stack.push(currentNode.left)
-        }
+    if (currentNode.right) {
+      stack.push(currentNode.right)
     }
-    return result
+    if (currentNode.left) {
+      stack.push(currentNode.left)
+    }
+  }
+  return result
 };
 
 // 递归
