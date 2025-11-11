@@ -7,6 +7,24 @@
  * @return {number}
  */
 var maxProfit = function(prices) {
+  let minPrice = Infinity
+  let maxProfit = 0
+
+  for (let i = 0; i < prices.length; i++) {
+    if (prices[i] < minPrice) {
+      minPrice = prices[i]
+    }
+
+    if (prices[i] - minPrice > maxProfit) {
+      maxProfit = prices[i] - minPrice
+    }
+  }
+
+  return maxProfit
+}
+
+// 时间复杂度O（n*n）超时
+var maxProfit1 = function(prices) {
   let maxProfit = 0
   for (let i = 0; i < prices.length; i++) {
     let currentProfit = 0
@@ -22,16 +40,6 @@ var maxProfit = function(prices) {
   return maxProfit
 };
 
-var maxProfit = function(prices) {
-  let left = 0
-  let right = prices.length - 1
-
-  let maxProfit = 0
-
-  while(left < right) {
-    
-  }
-}
 
 const prices = [7,6,4,3,1]
-console.log(maxProfit(prices))
+console.log(maxProfit1(prices))
