@@ -6,21 +6,23 @@
  * @param {number[]} nums
  * @return {boolean}
  */
+
+//
 var canJump = function(nums) {
-  let maxReach = 0 // 当前能到达的最远位置
+  // 当前以及之前所有元素能达到的最远的位置
+  let maxReach = 0 // 能到达的最远位置
 
   for (let i = 0; i < nums.length; i++) {
     // 如果当前位置已经超过了能到达的最远位置，说明无法到达
     if (i > maxReach) return false
 
     // 更新能到达的最远位置
+    // 重点是当前以及之前所有元素能到达的最远位置的范围，所以要取Math.max
     maxReach = Math.max(maxReach, i + nums[i])
 
     // 如果已经能达到最后一个位置或更远的位置，返回
     if (maxReach >= nums.length - 1) return true
   }
-
-  return true
 };
 
 const nums = [3,2,1,0,4]
