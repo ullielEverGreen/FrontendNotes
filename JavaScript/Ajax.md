@@ -21,7 +21,6 @@ const Ajax = (options) => {
   const options = options || {}
   options.type = (options.type || 'GET').toUpperCase()
   options.dataType = options.dataType || 'json'
-    xhr.send(params)
   const parmas = options.data
 
   // xhr.open 接收三个主要参数：请求方法（如"GET"、"POST"），请求的URL，

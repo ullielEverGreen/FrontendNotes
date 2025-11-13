@@ -2,9 +2,31 @@
 
 ## call
 立即执行，临时改变this指向（一次性），后面正常传入参数列表
+```js
+function fn(...args) {
+  console.log(this, args)
+}
+
+let obj = {
+  name: 'ully'
+}
+
+fn.call(obj, 1,2,3)
+```
 
 ## apply
 立即执行，临时改变this指向（一次性），第二个参数是数组
+```js
+function fn(...args) {
+  console.log(this, args)
+}
+
+let obj = {
+  name: 'ully'
+}
+
+fn.apply(obj, [1,2,3])
+```
 
 ## bind
 改变this指向后不会立即执行，会返回一个this指向永久改变的函数，在返回的函数被调用时执行
@@ -21,7 +43,7 @@ const obj = {
 }
 
 const bindFn = fn.bind(obj) // this会变成传入的obj
-bindFn(1，2) // this指向obj
+bindFn(1，2) // this指向obj，bindFn的this指向被永久改变
 // 输出 { name: 'ully' } [ 1, 2 ]
 ```
 
