@@ -39,7 +39,6 @@ TweetCounts.prototype.getTweetCountsPerFrequency = function(freq, tweetName, sta
   } 
   return result
 };
-
 TweetCounts.prototype.getChunk = function(freq) {
   const map = {
     'minute': 60,

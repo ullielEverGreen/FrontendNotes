@@ -1,20 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
 <body>
-  <div class="container bfc">
-    <div class="content"></div>
-  </div>
+  <div>timer: {{ timer }}</div>
+  <div onclick="click"></div>
 </body>
 
-<style>
-  .container {
-    border: 1px solid black;
-  }
-  .bfc {
-    overflow: hidden;
-  }
-  .content {
-    background: #fcc;
-    width: 100px;
-    height: 100px;
-    float: right;
-  }
-</style>
+<script>
+  const timer = '24：00：00'
+</script>
+</html>
