@@ -3,96 +3,114 @@ import './style.css'
 
 const Table = () => {
   const columns = [
-    { id: 'name', name: 'name', sortable: false },
-    { id: 'age', name: 'age', sortable: true },
-    { id: 'sex', name: 'sex', sortable: false }
+    { id: 1, column: 'name', sortable: false },
+    { id: 2, column: 'age', sortable: true },
+    { id: 3, column: 'gender', sortable: false },
+    { id: 4, column: 'salary', sortable: true }
   ]
 
   const info = [
-    { name: 'ully', age: 28, sex: 'female' },
-    { name: 'luna', age: 20, sex: 'female' },
-    { name: 'tangyuan', age: 27, sex: 'male' },
+    { name: 'ully', age: 28, gender: 'female', salary: 100000 },
+    { name: 'luna', age: 20, gender: 'female', salary: 50000 },
+    { name: 'tangyuan', age: 23, gender: 'male', salary: 3000 }
   ]
 
-  const [sortConfig, setSortConfig] = useState({
+  const [sortStatus, setSortStatus] = useState({
     key: null,
-    direction: 'normal' // normal up down
+    status: 'normal' // normal up down
   })
 
-  const srotedData = useMemo(() => {
-    const copyInfo = [...info]
+  const getSortedIcon = (column) => {
+    if (!column.sortable) return ''
     
-    if (sortConfig.direction === 'normal') {
-      return copyInfo
-    }
+    const { key, status } = sortStatus
 
-    if (sortConfig.direction === 'up') {
-      return copyInfo.sort((a, b) => a[sortConfig.key] - b[sortConfig.key])
-    } else {
-      return copyInfo.sort((a, b) => b[sortConfig.key] - a[sortConfig.key])
-    }
-  }, [sortConfig, info])
-
-  const getSortIcon = () => {
-    return {
+    const iconMap = {
       normal: '-',
       up: '↑',
       down: '↓'
-    }[sortConfig.direction]
+    }
+
+    if (key === column.column) {
+      return iconMap[status]
+    } else {
+      return iconMap['normal']
+    }
   }
 
-  const handleSortClick = (c) => {
-    if (!c.sortable) return
+  const handleSorted = (column) => {
+    if (!column.sortable) return
+    
+    const nextMap = {
+      normal: 'up',
+      up: 'down',
+      down: 'normal'
+    }
 
-    setSortConfig(prev => {
-      const nextDirection = {
-        normal: 'up',
-        up: 'down',
-        down: 'normal'
-      }[prev.direction]
+    setSortStatus(prev => {
+      if (prev.key !== column.column) {
+         return {
+           key: column.column,
+           status: nextMap['normal']
+         } 
+      }
 
       return {
-        key: c.name,
-        direction: nextDirection
+        key: column.column,
+        status: nextMap[prev.status]
       }
     })
   }
 
-  return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            {
-              columns.map(c => {
-                return (
-                  <td onClick={() => handleSortClick(c)}>
-                    {c.sortable ? c.name + getSortIcon() : c.name}
-                  </td>
-                )
-              })  
-            }
-          </tr>
-        </thead>
+  const sortedData = useMemo(() => {
+    const { key, status } = sortStatus
 
-        <tbody>
+    const initialInfo = [...info]
+    
+    if (status === 'normal') {
+      return initialInfo
+    } else if (status === 'up') {
+      return initialInfo.sort((a, b) => a[key] - b[key])
+    } else if (status === 'down') {
+      return initialInfo.sort((a, b) => b[key] - a[key])
+    }
+  }, [info])
+
+  return (
+    <table>
+      <thead>
+        <tr>
           {
-            srotedData.map(i => {
+            columns.map(c => {
               return (
-                <tr>
-                  <td>{i.name}</td>
-                  <td>{i.age}</td>
-                  <td>{i.sex}</td>
-                </tr>
+                <td onClick={() => handleSorted(c)}>
+                  {c.column}{getSortedIcon(c)}
+                </td>
               )
             })
           }
-        </tbody>
-      
-      </table>
-    
-    </div>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          sortedData.map(i => {
+            return (
+              <tr>
+                {
+                  columns.map(j => {
+                    return (
+                      <td>{i[j.column]}</td>
+                    )
+                  })
+                }
+              </tr>
+            )
+          })
+        }
+      </tbody>
+    </table>
   )
 }
+
 
 export default Table
