@@ -7,6 +7,7 @@
  * @param {number[]} nums
  * @return {number}
  */
+// 滑动窗口
 var minSubArrayLen = function(target, nums) {
   let left = 0
   let right = 0

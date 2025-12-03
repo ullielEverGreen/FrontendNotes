@@ -17,10 +17,9 @@ const getCountdown = (str) => {
   let s = Number(str.split(':')[2])
 
   const timer = setInterval(() => {
-
     console.log((h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m ) + ':' + (s < 10 ? '0' + s : s))
 
-
+    // 结束条件
     if (h === 0 && m === 0 && s === 0) {
       console.log('倒计时结束')
       clearInterval(timer)
@@ -39,5 +38,7 @@ const getCountdown = (str) => {
     }
   }, 1000)
 }
+
+// getCountdown(str)
 
 getCountdown(str)
