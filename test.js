@@ -1,44 +1,22 @@
-// let time = 5
+const lengthOfLongestSubstring = (s) => {
+  let left = 0, right = 0
+  let set = new Set()
+  let maxLen = 0
 
-// const timer = setInterval(() => {
+  while(right < s.length) {
 
-//   if (time === -1) {
-//     time = 5
-//   }
-
-//   console.log(time--)
-// }, 1000)
-
-const str = '00:00:03'
-
-const getCountdown = (str) => {
-  let h = Number(str.split(':')[0])
-  let m = Number(str.split(':')[1])
-  let s = Number(str.split(':')[2])
-
-  const timer = setInterval(() => {
-    console.log((h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m ) + ':' + (s < 10 ? '0' + s : s))
-
-    // 结束条件
-    if (h === 0 && m === 0 && s === 0) {
-      console.log('倒计时结束')
-      clearInterval(timer)
+    while(set.has(s[right])) {
+      maxLen = Math.max(maxLen, right - left)
+      set.delete(s[left])
+      left++
     }
 
-    s--
-    
-    if (s < 0) {
-      s = 59
-      m--
-    }
+    set.add(s[right])
+    right++
+  }
 
-    if (m < 0) {
-      m = 59
-      h--
-    }
-  }, 1000)
+  return maxLen
 }
 
-// getCountdown(str)
-
-getCountdown(str)
+const s = "abcabcbb"
+console.log(lengthOfLongestSubstring(s))
