@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import './style.css'
 
 const TaskQueue = () => {
   const [taskQueue, setTaskQueue] = useState([
@@ -40,15 +41,14 @@ const TaskQueue = () => {
   }
 
   const executeAllTask = async () => {
-    for (let i = 0; i < taskQueue.length; i++) {
-      await executeTask(taskQueue[i])
+    for (let task of taskQueue) {
+      console.log('task', task)
+      await executeTask(task)
 
-      setTaskQueue(prev => prev.filter(j => j.name !== taskQueue[i].name))
-      setCompletedTask(prev => [
-        ...prev, {
-          name: taskQueue[i].name,
-        }
-      ])
+      setTaskQueue(prev => prev.filter(i => i.name !== task.name))
+      setCompletedTask(prev => {
+        return [...prev, {name: task.name}]
+      })
     }
   }
   
