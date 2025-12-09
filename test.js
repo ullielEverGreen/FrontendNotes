@@ -1,22 +1,25 @@
-const lengthOfLongestSubstring = (s) => {
-  let left = 0, right = 0
-  let set = new Set()
-  let maxLen = 0
-
-  while(right < s.length) {
-
-    while(set.has(s[right])) {
-      maxLen = Math.max(maxLen, right - left)
-      set.delete(s[left])
-      left++
-    }
-
-    set.add(s[right])
-    right++
-  }
-
-  return maxLen
+const test1 = async () => {
+  new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('test1')
+      resolve()
+    }, 1000)
+  })
+}
+const test2 = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('test2')
+      resolve('???')
+    }, 1000)
+  })
 }
 
-const s = "abcabcbb"
-console.log(lengthOfLongestSubstring(s))
+const execute = async () => {
+  const a = await test1()
+  console.log('a', a)
+  const b = await test2()
+  console.log('b', b)
+}
+
+execute()

@@ -2,87 +2,154 @@ import React, { useRef, useState } from 'react'
 import './style.css'
 
 const TaskQueue = () => {
-  const [taskQueue, setTaskQueue] = useState([
-    // { name: '任务1', duration: 2000, progress: 60 }
-  ])
-  const [completedTask, setCompletedTask] = useState([])
-  
+  const [tasks, setTasks] = useState([])
 
-  const addTask = () => {
-    setTaskQueue(prev => {
-      return [...prev, 
-        { 
-          name: '任务' + Number(prev.length + completedTask.length + 1), 
-          duration: Math.floor((Math.random() * 3 + 1)) * 1000, 
-          progress: 0 
-        }]
-    })
+  const [completedTasks, setCompletedTasks] = useState([])
+
+  // 添加任务
+  const handleTaskAdd = () => {
+    const duration = Math.floor((Math.random() * 3) + 1) * 1000
+    const task = { id: Date.now(), name: '任务' + Number(tasks.length + completedTasks.length + 1), duration, progress: 0 }
+
+    setTasks(prev => [...prev, task])
   }
 
-  const executeTask = async (task) => {
+  // 执行单个任务
+  const handleTaskExecute = () => {
     return new Promise((resolve) => {
+      if (!tasks.length) return
+      const curTask = tasks[0]
       let progress = 0
-      
       const timer = setInterval(() => {
         progress += 1
-        
-        setTaskQueue(prev => prev.map(i => {
-          return i.name === task.name ? {...i, progress} : i
-        }))
-  
+
+        // 更新progress
+        setTasks((prev) => {
+         return prev.map(i => {
+              return {
+                ...i,
+                progress: i.id === curTask.id ? progress : i.progress
+              }
+          })
+        })
+
+        // 停止
         if (progress >= 100) {
           clearInterval(timer)
-  
-          resolve()
+
+          setTasks((prev) => {
+            return prev.map(i => {
+              return {
+                ...i,
+                progress: i.id === curTask.id ? 100 : i.progress
+              }
+            })
+          })
+
+          // 移至已完成任务
+          setTimeout(() => {
+            setTasks(prev => {
+              return prev.filter(i => i.id !== curTask.id)
+            })
+            setCompletedTasks(prev => {
+              return [...prev, curTask]
+            })
+            resolve()
+          }, 300)
         }
         
-      }, task.duration / 100)
+      }, curTask.duration / 100)
     })
   }
 
-  const executeAllTask = async () => {
-    for (let task of taskQueue) {
-      console.log('task', task)
-      await executeTask(task)
+  // 执行全部任务
+  const handleAllTasks = async () => {
+    const executeTask = (task) => {
+      return new Promise((resolve) => {
+        if (!tasks.length) return
+        const curTask = task
+        let progress = 0
+        const timer = setInterval(() => {
+          progress += 1
+          // 更新progress
+          setTasks((prev) => {
+           return prev.map(i => {
+                return {
+                  ...i,
+                  progress: i.id === curTask.id ? progress : i.progress
+                }
+            })
+          })
 
-      setTaskQueue(prev => prev.filter(i => i.name !== task.name))
-      setCompletedTask(prev => {
-        return [...prev, {name: task.name}]
+          // 停止
+          if (progress >= 100) {
+            clearInterval(timer)
+  
+            setTasks((prev) => {
+              return prev.map(i => {
+                return {
+                  ...i,
+                  progress: i.id === curTask.id ? 100 : i.progress
+                }
+              })
+            })
+  
+            // 移至已完成任务
+            setTimeout(() => {
+              setTasks(prev => {
+                return prev.filter(i => i.id !== curTask.id)
+              })
+              setCompletedTasks(prev => {
+                return [...prev, curTask]
+              })
+
+              resolve()
+            }, 300)
+          }
+          
+        }, curTask.duration / 100)
       })
     }
-  }
   
+    for (let item of tasks) {
+      await executeTask(item)
+    }
+  }
+
   return (
-    <div>
-      <div className='btns'>
-        <button onClick={addTask}>添加任务</button>
-        <button onClick={executeAllTask}>队列执行</button>
+    <div className="wrapper">
+      <div className="btns">
+        <button onClick={handleTaskAdd}>添加任务</button>
+        <button onClick={handleTaskExecute}>执行单个任务</button>
+        <button onClick={handleAllTasks}>执行全部任务</button>
       </div>
 
-      <div className='task-queue-wrapper'>
-        <p>任务队列</p>
-        {
-          taskQueue.map(i => {
-            return (
-              <div className='task-queue'>
-                <div className='content'>
-                  <span>{ i.name }</span><span>{ i.duration / 1000 }s</span><span>{ i.progress }%</span>
+      <div className="task-queue-wrapper">
+        <h3>任务队列</h3>
+          { 
+            tasks.map(i => {
+              return (
+                <div className="task-queue">
+                  <div className="content">
+                    <span>{ i.name }</span>
+                    <span>{ i.duration / 1000 }s</span>
+                    <span>{ i.progress }%</span>
+                  </div>
+                  <div className="progress-bar" 
+                    style={{ width: `${i.progress}%` }}  
+                  />
                 </div>
-                <div className='progress-bar'
-                  style={{ width: (i.progress)*2 + 'px' }}
-                />
-              </div>
-            )
-          })
-        }
+              )
+            })
+          }
       </div>
 
-      <div className='complete-task-queue-wrapper'>
-        <p>已完成的任务</p>
+      <div className="completed-tasks-wrapper">
+        <h3>已完成任务</h3>
         {
-          completedTask.map(i => {
+          completedTasks.map(i => {
             return (
-              <div className='complete-task-queue'>{ i.name } ✔</div>
+              <div className="completed-tasks">{ i.name } ✅</div>
             )
           })
         }

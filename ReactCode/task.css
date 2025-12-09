@@ -1,0 +1,62 @@
+.wrapper {
+  width: 500px;
+  min-height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: flex-start;
+}
+
+.btns {
+  width: 300px;
+  display: flex;
+  margin: 30px 0;
+  justify-content: space-between;
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+.task-queue-wrapper, .completed-tasks-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 90%;
+  border: 1px solid blue;
+  padding: 10px 0 30px;
+}
+
+.task-queue {
+  width: 70%;
+  border: 1px solid green;
+  display: flex;
+  margin: 10px 0;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-bar {
+  height: 10px;
+  margin-top: 15px;
+  float: left;
+  background-color: black;
+  border-radius: 30px;
+}
+
+.completed-tasks-wrapper {
+  margin-top: 30px;
+}
+
+.completed-tasks {
+  height: 50px;
+}

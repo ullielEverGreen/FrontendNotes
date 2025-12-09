@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 
 const FileComponent = () => {
   const [files, setFiles] = useState({
@@ -44,6 +44,7 @@ const FileComponent = () => {
       }
     })
   }
+
 
   const handleFileChange = (id) => {
     setFiles(prev => {
