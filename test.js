@@ -1,29 +1,29 @@
-function merge( A, m, B, n ) {
-  let i = m - 1
-  let j = n - 1
-  let k = m + n - 1
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function (nums, k) {
+  const result = []
+  const queue = [] // 维护单调递减的元素的索引
 
-  while(i >= 0 && j >= 0) {
-    if (A[i] > B[j]) {
-      A[k] = A[i]
-      i--
-    } else {
-      A[k] = B[j]
-      j--
+  for (let i = 0; i < nums.length; i++) {
+    if (queue.length && queue[0] < i-k+1) {
+      queue.shift()
     }
-    k--
+    while(queue.length && nums[queue[queue.length - 1]] <= nums[i]) {
+      queue.pop()
+    }
+    queue.push(i)
+    
+    console.log('queue', queue)
+    if (i-k+1>= 0) {
+      result.push(nums[queue[0]])
+      console.log('result', result)
+    }
   }
+  return result
+};
 
-  while(j >= 0) {
-    A[k] = B[j]
-    j--
-    k--
-  }
-
-  return A
-}
-
-const A = [4,5,6]
-const B = [1,2,3]
-
-console.log(merge(A, 3, B, 3))
+const nums = [1,3,-1,-3,5,3,6,7], k = 3
+console.log(maxSlidingWindow(nums, k))
