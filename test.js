@@ -1,8 +1,2 @@
-/**
- * @param {number[]} nums
- * @param {number} val
- * @return {number}
- */
-var removeElement = function (nums, val) {
-  
-}
+const a = 1 + '1'
+console.log(a)

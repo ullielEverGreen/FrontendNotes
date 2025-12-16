@@ -24,6 +24,7 @@ const FileComponent = () => {
     return false
   }
 
+  // 文件夹
   const handleFolderChange = () => {
     const cur = getFolderStatus()
 
@@ -45,7 +46,7 @@ const FileComponent = () => {
     })
   }
 
-
+  // 文件
   const handleFileChange = (id) => {
     setFiles(prev => {
       const updatedChildren = prev.folder.children.map(i => 

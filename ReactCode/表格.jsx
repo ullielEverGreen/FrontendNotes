@@ -20,6 +20,7 @@ const Table = () => {
     status: 'normal' // normal up down
   })
 
+  // 获取排序icon
   const getSortedIcon = (column) => {
     if (!column.sortable) return ''
     
@@ -37,7 +38,7 @@ const Table = () => {
       return iconMap['normal']
     }
   }
-
+  // 排序
   const handleSorted = (column) => {
     if (!column.sortable) return
     
@@ -61,7 +62,7 @@ const Table = () => {
       }
     })
   }
-
+  // 缓存
   const sortedData = useMemo(() => {
     const { key, status } = sortStatus
 

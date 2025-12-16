@@ -75,16 +75,13 @@ const TaskQueue = () => {
           setTasks((prev) => {
            return prev.map(i => {
                 return {
-                  ...i,
-                  progress: i.id === curTask.id ? progress : i.progress
+                  ...i, progress: i.id === curTask.id ? progress : i.progress
                 }
             })
           })
-
           // 停止
           if (progress >= 100) {
             clearInterval(timer)
-  
             setTasks((prev) => {
               return prev.map(i => {
                 return {
@@ -93,7 +90,6 @@ const TaskQueue = () => {
                 }
               })
             })
-  
             // 移至已完成任务
             setTimeout(() => {
               setTasks(prev => {
@@ -106,11 +102,9 @@ const TaskQueue = () => {
               resolve()
             }, 300)
           }
-          
         }, curTask.duration / 100)
       })
     }
-  
     for (let item of tasks) {
       await executeTask(item)
     }
