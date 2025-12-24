@@ -1,3 +1,17 @@
+// -------- 链表 --------
+// 02.07
+const getIntersectionNode = (headA, headB) => {
+  if (headA === null || headB === null) return null
+  let p1 = headA, p2 = headB
+
+  while(p1 !== p2) {
+    p1 = p1 === null ? headB : p1.next
+    p2 = p2 === null ? headA : p2.next
+  }
+
+  return p1
+}
+
 // 21
 const mergeTwoLists = (list1, list2) => {
     const dummy = new ListNode(0)
@@ -56,6 +70,33 @@ const reverseList = (head) => {
   }
   return prev
 }
+
+// 142
+const detectCycle = (head) => {
+  if (head === null || head.next === null) return null
+
+  let slow = head, fast = head
+
+  while(fast !== null && fast.next !== null) {
+    slow = slow.next
+    fast = fast.next.next
+
+    if (slow === fast) {
+      let pointer = head
+
+      while(pointer !== slow) {
+        slow = slow.next
+        pointer = pointer.next
+      }
+
+      return pointer
+    }
+  }
+
+  return null
+}
+
+// -------- 动态规划 --------
 
 // 70
 const climbStairs = (n) => {
