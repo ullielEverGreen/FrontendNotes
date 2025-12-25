@@ -42,14 +42,14 @@ const mergeTwoLists = (list1, list2) => {
 // 203
 const removeElements = (head, val) => {
   const dummy = new ListNode(0)
-  let p = dummy
-  p.next = head
+  dummy.next = head
+  let current = dummy
 
-  while(p !== null) {
-    if (p.next.val === val) {
-      p.next = p.next.next
+  while(current.next !== null) {
+    if (current.next.val === val) {
+      current.next = current.next.next
     } else {
-      p = p.next
+      current = current.next
     }
   }
 
