@@ -1,5 +1,5 @@
 // -------- 链表 --------
-// 02.07
+// 02.07 链表相交
 const getIntersectionNode = (headA, headB) => {
   if (headA === null || headB === null) return null
   let p1 = headA, p2 = headB
@@ -12,7 +12,7 @@ const getIntersectionNode = (headA, headB) => {
   return p1
 }
 
-// 21
+// 21 合并两个有序链表
 const mergeTwoLists = (list1, list2) => {
     const dummy = new ListNode(0)
     let p = dummy
@@ -39,7 +39,7 @@ const mergeTwoLists = (list1, list2) => {
     return dummy.next
 }
 
-// 203
+// 203 移除链表元素
 const removeElements = (head, val) => {
   const dummy = new ListNode(0)
   dummy.next = head
@@ -56,7 +56,7 @@ const removeElements = (head, val) => {
   return dummy.next
 }
 
-// 206
+// 206 反转链表
 const reverseList = (head) => {
   let prev = null
 
@@ -71,7 +71,7 @@ const reverseList = (head) => {
   return prev
 }
 
-// 142
+// 142 环形链表 II
 const detectCycle = (head) => {
   if (head === null || head.next === null) return null
 
@@ -98,7 +98,7 @@ const detectCycle = (head) => {
 
 // -------- 动态规划 --------
 
-// 70
+// 70 爬楼梯
 const climbStairs = (n) => {
   if (n <= 2) return n
 
@@ -114,7 +114,7 @@ const climbStairs = (n) => {
   return dp[n-1]
 }
 
-// 198
+// 198 打家劫舍
 const rob = (nums) => {
   if (!nums.length) return 0
   if (nums.length === 1) return nums[0]
@@ -131,7 +131,7 @@ const rob = (nums) => {
   return dp[nums.length - 1]
 }
 
-// 322
+// 322 零钱兑换
 const coinChange = (coins, amount) => {
   const dp = new Array(amount+1).fill(Infinity)
 
@@ -149,7 +149,7 @@ const coinChange = (coins, amount) => {
 }
 const coins = [1, 2, 5], amount = 11
 
-// 509
+// 509 斐波那契数
 const fib = (n) => {
   const dp = new Array(n+1)
   dp[0] = 0
@@ -160,7 +160,7 @@ const fib = (n) => {
   return dp[n]
 }
 
-// 118
+// 118 杨辉三角
 const generate = (numRows) => {
   const dp = new Array(numRows).fill([])
 
